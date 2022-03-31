@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <style>
+        
+
+    </style>
+
+</head>
+<body>
+    
+    <div id="app">
+        <v-app>
+            <v-app-bar app color="primary" dark>
+                <v-app-bar-nav-icon @click="ndrawer = true"></v-app-bar-nav-icon>
+                <v-toolbar-title>부산 관광 안내</v-toolbar-title>
+            </v-app-bar>
+
+            <v-navigation-drawer absolute temporary v-model="ndrawer"> 
+                <!--temporary 사용시 나타나는 부분이 가장 위로 나옴-->
+                <v-toolbar flat height="70px"> <!--flat은 디자인 (종이같은 디자인)-->
+                    <v-list>
+                        <v-list-item>
+                            <v-list-item-avatar>
+                                <img src="./png-transparent-login-computer-icons-password-login-black-symbol-subscription-business-model.png" alt="">
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title> 즐거운 부산 </v-list-item-title>
+                                <v-list-item-subtitle> 다이나믹 부산 </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </v-toolbar>
+                <v-divider></v-divider>
+
+                <!-- 메뉴리스트 -->
+                <v-list>
+                    <v-list-item @click="" v-for="m in itemList" :href="m.link">
+                        <v-list-item-action>
+                            <v-icon>{{m.icon}}</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                {{m.title}}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+
+            </v-navigation-drawer>
+
+            <v-content>
+                <v-container>
+                    <h2 class="d-flex justify-center">현재 인기있는 곳입니다</h2>
+                    <p class="d-flex justify-center">추천을 통해 인기있는 곳을 골라주세요</p>
+                
+                    <v-row>
+                        <v-col cols="12" sm="12" md="6" v-for="(m,index) in names">
+                                <v-card>
+                                    <v-img :src="m.src" style="height:200px"></v-img>
+                                    <v-card-text>
+                                        <p style="font-size:15px"> {{m.name}} </p>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <p>{{m.count}}</p>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="success" dark @click="count(index)">추천</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </transtion>
+                        </v-col>
+                    </v-row>
+
+                        <v-card>
+                            <v-list>
+                                <v-slide-x-transition group>
+                                    <v-list-item v-for="i in namelist" :key="i">
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                {{i}}를 추천합니다
+                                            </v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-slide-x-transition>
+                            </v-list>
+                        </v-card>
+
+                </v-container>
+            </v-content>
+
+        </v-app>
+    </div>
+
+
+    <script>
+        new Vue({
+            el : "#app",
+            vuetify : new Vuetify(),
+            data : {
+                names : [
+                    {
+                        name : '해운대',
+                        src : './해운대.jpg',
+                        count : 0
+                    },
+                    {
+                        name : '바다 도시 야경',
+                        src : './바다 도시 야경.jpg',
+                        count : 0
+                    },
+                    {
+                        name : '광안대교',
+                        src : './광안대교.jpg',
+                        count : 0
+                    },
+                    {
+                        name : '해운대 인어동상',
+                        src : './해운대 인어동상.jpg',
+                        count : 0
+                    }
+                ], 
+                ndrawer : false,
+                namelist : [],
+                itemList : [
+                    {
+                        title : '메인페이지',
+                        icon : 'mdi-keyboard',
+                        link : '#'
+                    },
+                    {
+                        title : '관광지소개',
+                        icon : 'mdi-note',
+                        link : '#'
+                    },
+                    {
+                        title : '추천명소',
+                        icon : 'mdi-check',
+                        link : '#'
+                    }
+                ]
+            },
+            methods : {
+                count : function(index) {
+                    this.names[index].count++;
+                    this.namelist.push(this.names[index].name);
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
